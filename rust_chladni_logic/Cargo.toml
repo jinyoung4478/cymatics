@@ -1,0 +1,20 @@
+[package]
+name = "rust_chladni_logic"
+version = "0.1.0"
+edition = "2021"
+description = "Rust library for generating Chladni patterns"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2.87" # Use a recent version
+console_error_panic_hook = { version = "0.1.7", optional = true }
+js-sys = "0.3" # For Math.PI if needed, though std::f64::consts::PI is better
+
+[features]
+default = ["console_error_panic_hook"]
+
+[profile.release]
+lto = true
+opt-level = 's' # Optimize for size 
