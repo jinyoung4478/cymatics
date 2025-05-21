@@ -1,0 +1,16 @@
+{
+  "name": "rust_chladni_logic",
+  "type": "module",
+  "description": "Rust library for generating Chladni patterns",
+  "version": "0.1.0",
+  "files": [
+    "rust_chladni_logic_bg.wasm",
+    "rust_chladni_logic.js",
+    "rust_chladni_logic.d.ts"
+  ],
+  "main": "rust_chladni_logic.js",
+  "types": "rust_chladni_logic.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

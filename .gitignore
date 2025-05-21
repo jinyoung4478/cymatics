@@ -3,12 +3,3 @@
 **/target/
 /rust_chladni_logic/pkg/
 /web_chladni_ui/pkg/
-
-# Vercel output (if it creates a .vercel directory locally)
-.vercel/
-
-# OS-specific
-.DS_Store
-*.swp
-*.swo
-*~ 
