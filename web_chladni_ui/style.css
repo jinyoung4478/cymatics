@@ -1,49 +1,229 @@
+:root {
+    --body-bg-color: #f0f2f5;
+    --text-color: #333;
+    --header-color: #2c3e50;
+    --controls-bg-color: #ffffff;
+    --controls-shadow-color: rgba(0,0,0,0.08);
+    --canvas-plate-color: #ffffff; /* Color of the plate itself (where particles are) */
+    --canvas-particle-color: #000000;
+    --canvas-border-color: #bdc3c7; /* Only if canvas border is re-enabled */
+    --input-border-color: #ccc;
+    --switch-bg-color: #ccc;
+    --switch-slider-color: white;
+    --switch-slider-checked-bg: #2196F3; 
+}
+
+.dark-mode:root {
+    --body-bg-color: #1e1e1e; /* Darker gray */
+    --text-color: #e0e0e0; /* Light gray text */
+    --header-color: #e0e0e0; /* Material dark theme purple */
+    --controls-bg-color: #2c2c2c; /* Darker controls background */
+    --controls-shadow-color: rgba(255,255,255,0.05);
+    --canvas-plate-color: #3a3a3a; /* Darker plate */
+    --canvas-particle-color: #e0e0e0; /* Light particles */
+    --canvas-border-color: #444;
+    --input-border-color: #555;
+    --switch-bg-color: #555;
+    --switch-slider-color: #ccc;
+    --switch-slider-checked-bg: #2196f3; 
+}
+
 body {
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--body-bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 1000px; /* User updated this */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 20px;
-    background-color: #f4f4f4;
+    align-items: center; 
 }
 
-h1 {
-    color: #333;
-}
-
-.controls {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 10px 20px; /* row-gap column-gap */
+header h1 {
+    color: var(--header-color);
+    text-align: center;
     margin-bottom: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 2em;
 }
 
-.controls div {
+.main-content {
     display: flex;
-    align-items: center;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 20px;
+    width: 100%; 
 }
 
-.controls label {
-    margin-right: 10px;
-    min-width: 150px; /* Adjust as needed */
-}
-
-.controls input[type="range"] {
-    flex-grow: 1;
-    margin-right: 10px;
-}
-
-.controls span {
-    min-width: 40px; /* Ensure consistent width for value display */
-    text-align: right;
+.canvas-container {
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-start;
+    width: 100%; 
+    max-width: 1000px; /* User updated this */
 }
 
 #chladniCanvas {
-    border: 1px solid #ccc;
-    background-color: #fff; /* Ensure canvas is white for contrast with black pattern */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%; 
+    height: auto; 
+    aspect-ratio: 1 / 1; 
+    flex-shrink: 0; 
+    /* Visual properties like border, background, shadow are removed or handled by JS drawing */
+}
+
+.controls-container {
+    width: 100%; 
+    max-width: 1000px; /* User updated this */
+}
+
+/* Theme switcher styles */
+.theme-switcher-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align to the right of the controls area */
+    margin-bottom: 15px;
+    padding-right: 5px; /* Small padding if controls have padding */
+}
+.theme-switcher-label {
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px; /* Adjusted width */
+    height: 24px; /* Adjusted height */
+}
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--switch-bg-color);
+    transition: .4s;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; /* Adjusted size */
+    width: 18px; /* Adjusted size */
+    left: 3px; /* Adjusted position */
+    bottom: 3px; /* Adjusted position */
+    background-color: var(--switch-slider-color);
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: var(--switch-slider-checked-bg);
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px var(--switch-slider-checked-bg);
+}
+input:checked + .slider:before {
+    transform: translateX(26px); /* Adjusted translation */
+}
+.slider.round {
+    border-radius: 24px; /* Adjusted for height */
+}
+.slider.round:before {
+    border-radius: 50%;
+}
+/* End Theme switcher styles */
+
+.controls {
+    display: grid;
+    grid-template-columns: auto 1fr auto; 
+    gap: 15px 10px;
+    padding: 20px;
+    background-color: var(--controls-bg-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--controls-shadow-color);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.controls div {
+    display: contents; 
+}
+
+.controls label {
+    grid-column: 1;
+    text-align: right;
+    padding-right: 8px;
+    white-space: nowrap;
+    align-self: center;
+    font-size: 0.9em;
+    color: var(--text-color); /* Ensure labels also use text color variable */
+}
+
+.controls input[type="range"], .controls select {
+    grid-column: 2;
+    width: 100%; 
+    align-self: center;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid var(--input-border-color);
+    box-sizing: border-box;
+    background-color: var(--body-bg-color); /* Match select/range bg to body or controls */
+    color: var(--text-color);
+}
+
+.controls input[type="range"] {
+    padding: 0; 
+}
+
+.controls span {
+    grid-column: 3;
+    min-width: 45px;
+    text-align: left;
+    padding-left: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    align-self: center;
+    font-size: 0.9em;
+    color: var(--text-color);
+}
+
+@media (max-width: 480px) { 
+    header h1 {
+        font-size: 1.5em;
+    }
+    .controls {
+        grid-template-columns: 1fr; 
+        gap: 8px;
+    }
+    .theme-switcher-container {
+        justify-content: flex-start; /* Align to left on small screens */
+        margin-bottom: 10px;
+        padding-left: 5px;
+    }
+    .controls label, .controls input[type="range"], .controls select, .controls span {
+        grid-column: 1; 
+        text-align: left;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .controls label {
+        margin-bottom: 2px; 
+        font-weight: bold;
+    }
+    .controls span {
+        margin-top: -5px; 
+        margin-bottom: 8px; 
+        font-size: 0.85em;
+    }
 } 

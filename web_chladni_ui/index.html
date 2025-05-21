@@ -1,49 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chladni Plate Simulation</title>
+    <title>사이매틱스 시뮬레이터</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Chladni Plate Simulation</h1>
-
-    <div class="controls">
-        <div>
-            <label for="nSlider">n:</label>
-            <input type="range" id="nSlider" name="n" min="1" max="20" value="7" step="0.1">
-            <span id="nValue">7</span>
-        </div>
-        <div>
-            <label for="mSlider">m:</label>
-            <input type="range" id="mSlider" name="m" min="1" max="20" value="2" step="0.1">
-            <span id="mValue">2</span>
-        </div>
-        <div>
-            <label for="aSlider">a:</label>
-            <input type="range" id="aSlider" name="a" min="-2" max="2" value="1" step="0.1">
-            <span id="aValue">1</span>
-        </div>
-        <div>
-            <label for="bSlider">b:</label>
-            <input type="range" id="bSlider" name="b" min="-2" max="2" value="-1" step="0.1">
-            <span id="bValue">-1</span>
-        </div>
-        <div>
-            <label for="resolutionSlider">Resolution (Particles):</label>
-            <input type="range" id="resolutionSlider" name="resolution" min="100" max="800" value="400" step="10">
-            <span id="resolutionValue">400</span>
-        </div>
-        <div>
-            <label for="thresholdSlider">Node Threshold:</label>
-            <input type="range" id="thresholdSlider" name="threshold" min="0.001" max="0.2" value="0.02" step="0.001">
-            <span id="thresholdValue">0.02</span>
-        </div>
+    <div class="app-container">
+        <header>
+            <h1>사이매틱스</h1>
+            <p>클라드니 도형 시뮬레이션</p>
+        </header>
+        <main class="main-content">
+            <div class="canvas-container">
+                <canvas id="chladniCanvas"></canvas>
+            </div>
+            <div class="controls-container">
+                <div class="theme-switcher-container">
+                    <label for="themeSwitcher" class="theme-switcher-label">다크 모드:</label>
+                    <label class="switch">
+                        <input type="checkbox" id="themeSwitcher">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="controls">
+                    <div>
+                        <label for="plateShapeSelect">판 모양:</label>
+                        <select id="plateShapeSelect">
+                            <option value="square">정사각형</option>
+                            <option value="circle">원형</option>
+                            <option value="rectangle_wide">직사각형 (가로형 2:1)</option>
+                            <option value="rectangle_tall">직사각형 (세로형 1:2)</option>
+                            <option value="hexagon">정육각형</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="patternPreset">패턴 선택:</label>
+                        <select id="patternPreset">
+                            <option value="custom">사용자 정의</option>
+                            <!-- 프리셋은 JS에서 추가됩니다 -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="nSlider">가로 방향 파동수 (n):</label>
+                        <input type="range" id="nSlider" name="n" min="1" max="20" value="7" step="0.1">
+                        <span id="nValue">7.0</span>
+                    </div>
+                    <div>
+                        <label for="mSlider">세로 방향 파동수 (m):</label>
+                        <input type="range" id="mSlider" name="m" min="1" max="20" value="2" step="0.1">
+                        <span id="mValue">2.0</span>
+                    </div>
+                    <div>
+                        <label for="aSlider">파동 조합 계수 A (a):</label>
+                        <input type="range" id="aSlider" name="a" min="-2" max="2" value="1" step="0.1">
+                        <span id="aValue">1.0</span>
+                    </div>
+                    <div>
+                        <label for="bSlider">파동 조합 계수 B (b):</label>
+                        <input type="range" id="bSlider" name="b" min="-2" max="2" value="-1" step="0.1">
+                        <span id="bValue">-1.0</span>
+                    </div>
+                    <div>
+                        <label for="particleCountSlider">입자 수:</label>
+                        <input type="range" id="particleCountSlider" name="particleCount" min="1000" max="50000" value="15000" step="1000">
+                        <span id="particleCountValue">5000</span>
+                    </div>
+                    <div>
+                        <label for="forceSlider">입자 이동 속도:</label>
+                        <input type="range" id="forceSlider" name="force" min="0.00001" max="0.005" value="0.0005" step="0.00001">
+                        <span id="forceValue">0.0005</span>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
-
-    <canvas id="chladniCanvas"></canvas>
-
     <script type="module" src="main.js"></script>
 </body>
 </html> 
