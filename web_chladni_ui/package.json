@@ -1,0 +1,10 @@
+{
+  "name": "chladni-wasm-app",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "cd ../rust_chladni_logic && wasm-pack build --target web --out-dir ../web_chladni_ui/pkg --out-name rust_chladni_logic && cd ../web_chladni_ui && rm -rf ../docs && mkdir ../docs && cp index.html main.js style.css ../docs/ && cp -R pkg ../docs/"
+  },
+  "devDependencies": {
+    "wasm-pack": "^0.12.1"
+  }
+} 

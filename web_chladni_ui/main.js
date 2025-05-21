@@ -1,4 +1,4 @@
-import init, { init_particles, update_particles, PlateShape } from '../rust_chladni_logic/pkg/rust_chladni_logic.js';
+import init, { init_particles, update_particles, PlateShape } from './pkg/rust_chladni_logic.js';
 
 async function run() {
     await init();
